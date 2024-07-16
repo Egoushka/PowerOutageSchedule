@@ -1,0 +1,45 @@
+Завдання №2: SQL-запити
+Відібрати адреси, яким не назначено групу:
+
+SELECT Street 
+FROM Address 
+WHERE GroupId IS NULL;
+
+Відібрати графік відключень світла для адреси Бойченко 30:
+
+SELECT Schedule.Day, Schedule.StartTime, Schedule.EndTime 
+FROM Schedule 
+JOIN Address ON Schedule.GroupId = Address.GroupId 
+WHERE Address.Street = 'Бойченко 30';
+
+Відібрати групу, якій найчастіше виключають світло в неділю:
+
+SELECT TOP 1 GroupId, COUNT(*) AS OutageCount
+FROM Schedule
+WHERE Day = 'Неділя'
+GROUP BY GroupId
+ORDER BY OutageCount DESC;
+
+Відібрати групу, якій вимикають світло на найбільший час з понеділка по середу включно:
+
+SELECT TOP 1 GroupId, SUM(DATEDIFF(HOUR, StartTime, EndTime)) AS TotalOutageTime
+FROM Schedule
+WHERE Day IN ('Понеділок', 'Вівторок', 'Середа')
+GROUP BY GroupId
+ORDER BY TotalOutageTime DESC;
+
+Назначити на адресу Бажана 14 групу 4:
+
+UPDATE Address
+SET GroupId = 4
+WHERE Street = 'Бажана 14';
+
+Додати 2 нові адреси будь-які:
+
+INSERT INTO Address (Street, GroupId)
+VALUES ('Вулиця Нова 1', NULL), ('Вулиця Нова 2', 3);
+
+Додати новий графік вимкнення будь-який:
+
+INSERT INTO Schedule (Day, StartTime, EndTime, GroupId)
+VALUES ('П'ятниця', '14:00', '16:00', 2);
