@@ -7,25 +7,47 @@
 <h2 class="text-center mt-4">Графік відключень</h2>
 
 <div class="container mt-5">
+    <form method="get" asp-action="Index" class="d-flex mb-4">
+        <input type="text" name="filter" class="form-control me-2" placeholder="Введіть номер групи/черги" />
+        <button type="submit" class="btn btn-primary">Пошук</button>
+    </form>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+    }
+
+     @if (ViewBag.HasPower != null)
+      {
+          <div class="alert alert-info">
+              Група @ViewBag.Filter має світло: @(ViewBag.HasPower == true ? "Так" : "Ні")
+          </div>
+      }
+
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
-            <tr>
-                <th>Номер Групи/Черги</th>
-                <th>Час відключень</th>
-                <th>Дії</th>
-            </tr>
+        <tr>
+            <th>Номер Групи/Черги</th>
+            <th>Час відключень</th>
+            <th>Дії</th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.GroupId</td>
-                    <td>@item.OutageTimes</td>
-                    <td>
-                        <a href="@Url.Action("Edit", new { id = item.GroupId })" class="btn btn-warning">Редагувати</a>
-                    </td>
-                </tr>
-            }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.GroupId</td>
+                <td>@item.OutageTimes</td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = item.GroupId })" class="btn btn-warning">Редагувати</a>
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
 
