@@ -1,0 +1,29 @@
+﻿@model PowerOutageSchedule.Models.OutageSchedule
+
+@{
+    ViewBag.Title = "Редагування графіка";
+}
+
+<h2 class="text-center mt-4">Редагування графіка</h2>
+
+<div class="container mt-5">
+    <form asp-action="Edit" method="post" class="needs-validation" novalidate>
+        <div class="form-group mb-3">
+            <input type="hidden" asp-for="GroupId" />
+            <label asp-for="OutageTimes" class="form-label"></label>
+            <input asp-for="OutageTimes" class="form-control" required />
+            <span asp-validation-for="OutageTimes" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Зберегти</button>
+    </form>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger mt-3">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+    }
+</div>

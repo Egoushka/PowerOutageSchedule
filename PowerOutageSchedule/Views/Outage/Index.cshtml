@@ -1,0 +1,36 @@
+﻿@model IEnumerable<PowerOutageSchedule.Models.OutageSchedule>
+
+@{
+    ViewBag.Title = "Графік відключень";
+}
+
+<h2 class="text-center mt-4">Графік відключень</h2>
+
+<div class="container mt-5">
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Номер Групи/Черги</th>
+                <th>Час відключень</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.GroupId</td>
+                    <td>@item.OutageTimes</td>
+                    <td>
+                        <a href="@Url.Action("Edit", new { id = item.GroupId })" class="btn btn-warning">Редагувати</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between mt-4">
+        <a href="@Url.Action("Import")" class="btn btn-primary">Імпорт</a>
+        <a href="@Url.Action("Export")" class="btn btn-secondary">Експорт</a>
+    </div>
+</div>

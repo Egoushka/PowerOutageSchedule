@@ -1,0 +1,28 @@
+/* site.css */
+
+body {
+  padding-top: 4.5rem;
+}
+
+.footer {
+  padding: 1rem 0;
+  text-align: center;
+  background-color: #f8f9fa;
+}
+
+.table thead {
+  background-color: #343a40;
+  color: white;
+}
+
+.btn-warning {
+  color: white;
+}
+
+.alert {
+  margin-top: 1rem;
+}
+
+.container {
+  max-width: 900px;
+}

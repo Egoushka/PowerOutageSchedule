@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Імпорт даних";
+}
+
+<h2 class="text-center mt-4">Імпорт даних</h2>
+
+<div class="container mt-5">
+    @using (Html.BeginForm("Import", "Outage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="form-group mb-3">
+            <label for="file" class="form-label">Виберіть файл</label>
+            <input type="file" name="file" id="file" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Імпортувати</button>
+    }
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger mt-3">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+    }
+</div>
